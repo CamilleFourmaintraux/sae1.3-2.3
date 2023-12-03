@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.12">
+<title>Rapport SAE 2.03 : Installation d&#8217;une machine virtuelle Debian.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href=./css/regles.css>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:50%;border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1><strong>Rapport <em>SAE 2.03</em> : Installation d&#8217;une machine virtuelle <em>Debian</em>.</strong></h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_préparation_dune_machine_virtuelle">Préparation d&#8217;une machine virtuelle</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prérequis_de_la_machine_physique"><span class="blue"><strong>Prérequis de la machine physique</strong></span><br></h3>
+<div class="paragraph">
+<p>Avant de procéder, nous avons déjà vérifié si la machine physique avait les prérequis pour suppoter la machine virtuelle. Notamment en utilisant des commandes tel que : <strong>"free"</strong> et <strong>"dh"</strong> avec l&#8217;option <strong>-h</strong> pour que l&#8217;affichage soit plus lisible.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_création_de_la_machine_virtuelle"><span class="blue"><strong>Création de la machine virtuelle</strong></span><br></h3>
+<div class="paragraph">
+<p>Après les vérifications des prérequis, on peut démarrer le création de la machine virtuelle. Nous avons lancé Virtual Box et créer une nouvelle machine.
+Le logiciel nous demande de saisir un nom, un emplacement ainsi qu&#8217;une version.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Creermachine.png" alt="ImageDeLaCréationDeLaMachineVirtuelle" width="800" height="400">
+</div>
+<div class="title">Figure 1. Création de la machine virtuelle</div>
+</div>
+<div class="paragraph">
+<p><em>Nous avons choisi de nommer notre machine <strong>"exemple sae203"</strong> et <strong>Debian 64 bits</strong> pour la version.</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q1.a:]</strong></span> <em>Que signifie <strong>"64 bits"</strong> dans <strong>"Debian 64bits"</strong> ?</em><br>
+Cela signifie que c&#8217;est la version du système d&#8217;exploitation conçue pour fonctionner sur des processeurs 64 bits, soit un proccesseur peut accéder à <strong>2^64</strong> adresses mémoire différentes. En bref, toute quantité de mémoire supérieure à <strong>4 Go</strong> peut être facilement gérée par le système.<br>
+Source : <a href="https://fr.wikipedia.org/wiki/Processeur_64_bits">wikipedia</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Il faut ensuite définir une quantité de RAM.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/RAM.png" alt="ImageDeLaRAM" width="1200" height="600">
+</div>
+<div class="title">Figure 2. Allocation de la RAM</div>
+</div>
+<div class="paragraph">
+<p><em>Nous avons choisi <strong>2048Mb</strong>.</em></p>
+</div>
+<div class="paragraph">
+<p>Ensuite, il faut indiquer la taille du disque dur virtuel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Allocation_stockage.png" alt="ImageDeLAllocationDuStockage" width="800" height="400">
+</div>
+<div class="title">Figure 3. Allocation du stockage</div>
+</div>
+<div class="paragraph">
+<p><em>Nous avons choisi <strong>20Go</strong>.</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Récapitulatif:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debian 64 bits</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RAM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2048Mb</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Taille du disque dur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">20Go</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q1.b:]</strong></span> <em>Quel est la configuration réseau utilisé par défaut ?</em><br>
+La configuration réseau par défaut se compose de  deux adresses : lo et ens3.<br>
+Source : <a href="https://guide.ubuntu-fr.org/server/network-configuration.html">guide.ubuntu-fr</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q1.c:]</strong></span> <em>Quel est le nom du fichier xml contenant la configuration de votre machine ?</em><br>
+Le fichier XML contenant la configuration réseau de la machine est <em>"/etc/network/interfaces"</em>.<br>
+Le fichier de configuration de la mchine virtuelle lui s&#8217;appelle VirtualBox.xml<br>
+Source : <a href="https://fr.wikibooks.org/wiki/Administration_r%C3%A9seau_sous_Linux">wikibooks</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q1.d:]</strong></span> <em>Sauriez-vous le modifier directement ce fichier pour mettre 2 processeurs à votre machine?</em><br>
+Il y a plusieurs étapes :<br></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ouvrir le fichier XML de configuration<br></p>
+</li>
+<li>
+<p>Localiser la sanction nommée 'vcpu' ou 'cpu'<br></p>
+</li>
+<li>
+<p>Modifier la valeur de 'vcpu' ou de 'cpu' pour indiquer le nombre de proccesseurs souhaités (ici 2)<br></p>
+</li>
+<li>
+<p>Enrengistrer les modifications apportés et rédemarrer la machine virtuelle.<br>
+Source : <a href="https://www.debian-fr.org/t/doc-sur-install-bi-processeur/19107/11">debian-fr</a><br></p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Enfin, avant de démarrer la machine, il faut insérer virtuellement le disque <strong>iso</strong> de <em>Debian</em> pour installer l'<em>OS</em>. Celui-ci est trouvable sur <a href="https://www.debian.org/">le site officiel de Debian</a> sur <a href="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/">cette page.</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q2.a:]</strong></span> <em>Qu&#8217;est ce qu&#8217;un fichier iso bootable ?</em><br>
+Un fichier iso est un format de fichier numérique reproduisant un CD ou un DVD physique. On dit d&#8217;un disque qu&#8217;il est « bootable » lorsqu&#8217;il contient les composants logiciels nécessaires pour être démarré directement au chargement de l&#8217;ordinateur.<br>
+Source : <a href="https://www.ionos.fr/digitalguide/serveur/know-how/quest-ce-quun-fichier-iso/">ionos</a><br></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="_installation_de_los"><span class="blue"><strong>Installation de l&#8217;OS</strong></span><br></h3>
+<div class="paragraph">
+<p>Une fois la machine lancé, il demande de choisir le type d&#8217;installation. Nous avons choisi une installation graphique pour que les images soit plus parlante.<br>
+Il est ensuite demandé d&#8217;entrer des informations relatives au language, comme la langue de l&#8217;interface, le pays, ou la configuration du clavier.<sup class="footnote" id="_footnote_disclaimer">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></p>
+</div>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock text-center left">
+<div class="content">
+<img src="./images/choixlangue.png" alt="ImageDuChoixDeLaLangue" width="400" height="200">
+</div>
+<div class="title">Figure 4. Choix de la langue</div>
+</div>
+<div class="imageblock text-center right">
+<div class="content">
+<img src="./images/choixpays.png" alt="ImageDuChoixDuPays" width="400" height="200">
+</div>
+<div class="title">Figure 5. Choix du pays</div>
+</div>
+<div class="imageblock text-center center">
+<div class="content">
+<img src="./images/choixclavier.png" alt="ImageDuChoixDuClavier" width="400" height="200">
+</div>
+<div class="title">Figure 6. Choix du clavier</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Il est demandé de donner un nom à la machine.
+Nous avons nommé la machine "serveur".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/nomdemachine.png" alt="ImageDuNommageDeLaMachineVirtuelle" width="1200">
+</div>
+<div class="title">Figure 7. Nommage de la machine virtuelle</div>
+</div>
+<div class="paragraph">
+<p>Il sera demandé ensuite d&#8217;entrer un mot de passe pour root. Nous avons fait simple et avons mis <em>"root"</em>.</p>
+</div>
+<div class="paragraph">
+<p>Il faut ensuite créer un nouveau utilisateur :<br></p>
+</div>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock left">
+<div class="content">
+<img src="./images/mdpRoot.png" alt="ImageDuNouveauMotDePassePourRoot" width="400" height="200">
+</div>
+<div class="title">Figure 8. Définition du mot de passe pour root<br></div>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="./images/newUserName.png" alt="ImageDuNouveauNomPourLeNouveauUtilisateur" width="400" height="200">
+</div>
+<div class="title">Figure 9. Définition du nom de l&#8217;utilisateur<br></div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Nous l&#8217;avons appelé <em>"User"</em>, avec l&#8217;id <em>"user"</em> et pour le mot de passe&#8230;&#8203; <em>"user"</em>.</p>
+</div>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock left">
+<div class="content">
+<img src="./images/idNewUser.png" alt="ImageDuNouveauIdPourLeNouvelUtilisateur" width="400" height="200">
+</div>
+<div class="title">Figure 10. Définition de l&#8217;ID de l&#8217;utilisateur</div>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="./images/mdpUser.png" alt="ImageDuNouveaumotDePassePourLeNouvelUtilisateur" width="400" height="200">
+</div>
+<div class="title">Figure 11. Définition du mot de passe de l&#8217;utilisateur</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Il faut maintenant procéder aux partionnements des disques.<br></p>
+</div>
+<div class="paragraph">
+<p>Pour plus de simplicité, nous avons fait une partition simple, sur un disque entier.
+Pour le choix du disque à partionner, il devrait en avoir qu&#8217;un seul, nous avons donc choisi : (<em>*SCSI1 (0,0,0) (sda) - 21.5 GB ATA VBOX HARDDISK*</em>)</p>
+</div>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock left">
+<div class="content">
+<img src="./images/partition.png" alt="ImageDeLaPartitionSimpleDesDisque" width="400" height="200">
+</div>
+<div class="title">Figure 12. Partitionnement simple sur le disque entier</div>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="./images/idNewUser.png" alt="ImageDuChoixDuTypeDeShemaDeLaPartition" width="400" height="200">
+</div>
+<div class="title">Figure 13. Choix du type de shéma de la partition</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Il sera demander ensuite de confirmer le partionnement. Le partionnement étant une action avec certains inconvénient, l&#8217;option est par défault sur non. Il faut faire attention à cocher <em>"oui"</em> avant d&#8217;appuyer sur continuer.</p>
+</div>
+<div class="openblock float-group">
+<div class="content">
+<div class="imageblock left">
+<div class="content">
+<img src="./images/idNewUser.png" alt="ImageDuChoixDuTypeDeShemaDeLaPartition" width="400" height="200">
+</div>
+<div class="title">Figure 14. Choix du type de shéma de la partition</div>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="./images/confirmerPartition.png" alt="ImageDeLaConfirmationPourLePartionnment" width="400" height="200">
+</div>
+<div class="title">Figure 15. Confirmation du partionnement</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Une fenêtre récapitulant le partionnement s&#8217;affiche ensuite, il faut sélectionner <em>"Terminer le partionnement et appliquer les changements"</em>.</p>
+</div>
+<div class="paragraph">
+<p>Après un chargement, nous avons choisi le pays du miroir Debian : évidemment en France.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/choixpaquets.png" alt="ImageDuChoixDuPaysDuMiroir" width="1200" height="600">
+</div>
+<div class="title">Figure 16. Choix du pays du miroir</div>
+</div>
+<div class="paragraph">
+<p>Puis il demande un nom de domaine que nous avons laissé vide.
+Après un autre chargement, il propose d&#8217;analyser d&#8217;autres supports pour qu&#8217;ils soient utilisés par l&#8217;outil de gestion des paquets. Nous avons refusé.</p>
+</div>
+<div class="paragraph">
+<p>Pour le miroir, nous avons choisi : debian.polytech-lille.fr["debian.polytech-lille.fr"]</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/choixMiroirPourDebian.png" alt="ImageDuChoixDuMiroirDeDebian" width="400" height="250">
+</div>
+<div class="title">Figure 17. Choix du miroir de l&#8217;archive Debian</div>
+</div>
+<div class="paragraph">
+<p>Le miroir Debian de polytech est le plus proche et donc le plus efficace.</p>
+</div>
+<div class="paragraph">
+<p>et nous avons entré le mandataire http (proxy) suivant :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/proxy.png" alt="ImageDuProxy" width="400" height="250">
+</div>
+<div class="title">Figure 18. Choix du miroir de l&#8217;archive Debian</div>
+</div>
+<div class="paragraph">
+<p><em>Souvent, il est compliqué de copier-coller dans les machines virtuelles, il faudra donc probablement le recopier à la main.</em></p>
+</div>
+<div class="paragraph">
+<p>A la suite d&#8217;un autre chargement, il nous est proposé d&#8217;envoyer des données pour participer à une étude statitique. Nous avons refusé.</p>
+</div>
+<div class="paragraph">
+<p><strong>Nous arrivons à la sélection des logiciels de base.</strong> Nous avons sélectionné :<br>
+1. environnement de bureau <em>Debian</em><br>
+2. <em>MATE</em><br>
+3. serveur web<br>
+4. serveur <em>SSH</em><br>
+5. utilitaires usuels du système<br>
+<strong>Attention à bien décocher <em>Gnome</em> après avoir coché <em>MATE</em></strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q2.b:]</strong></span> <em>Qu&#8217;est-ce que MATE ? GNOME ?</em><br>
+L&#8217;environnement de Bureau MATE est la continuation de GNOME.2 par une communauté non satisfaite par GNOME.3. GNOME est un environnement de bureau attrayant à la fois libre et l&#8217;un des plus largement utilisés sur GNU/Linux. un environnement de bureau est un logiciel qui permet de manier l&#8217;ordinateur à travers une interface utilisateur qui se présente en mode graphique sous l&#8217;aspect d&#8217;un bureau.<br>
+Source : <a href="https://doc.ubuntu-fr.org/gnome">doc.ubuntu-fr</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ensuite, nous avons installé GRUB sur le disque principal, et nous avons choisi le disque qu&#8217;il nous proposait.</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;installation est enfin finie. Il faut redémarrer la machine en faisant attention de bien retirer le cd .iso d&#8217;installation car le laisser relancerait l&#8217;installation. Il devrait être automatiquement retiré mais cela ne coûte rien de vérifier.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/finInstallation.png" alt="ImageDeLaFinDeLInstallation" width="1200" height="600">
+</div>
+<div class="title">Figure 19. Fin de l&#8217;installation.</div>
+</div>
+<div class="paragraph">
+<p><em>Il suffit de se connecter et la machine virtuelle est globalement prête à l&#8217;emploi.</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q2.c:]</strong></span> <em>Qu&#8217;est-ce qu&#8217;un serveur web ?</em><br>
+Un serveur web est soit, un logiciel de service de ressources web (serveur HTTP), soit un serveur informatique (ordinateur) qui répond à des requêtes en utilisant principalement le protocole HTTP.<br>
+Source : <a href="https://developer.mozilla.org/fr/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server">developer.mozilla.org</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q2.d:]</strong></span> <em>Qu&#8217;est-ce qu&#8217;un serveur ssh ?</em><br>
+SSH, ou Secure Socket Shell, est un protocole réseau qui permet aux administrateurs d&#8217;accéder à distance à un ordinateur, en toute sécurité.<br>
+Source : <a href="https://doc.ubuntu-fr.org/ssh">doc.ubuntu-fr.org</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q2.e:]</strong></span>" <em>Qu&#8217;est-ce qu&#8217;un serveur mandataire ?</em><br>
+Un serveur proxy (mandataire en français) est un ordinateur qui intercepte et gère le trafic entre deux appareils, réseaux ou protocoles. Il peut faire office de pare-feu, de filtre, de cache ou faciliter les connexions réseau partagées.<br>
+Source : <a href="https://help.gnome.org/users/gnome-help/stable/net-proxy.html.fr">help.gnome.org</a><br></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_préparation_du_système">Préparation du système</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_accès_sudo_pour_lutilisateur"><span class="blue"><strong>Accès sudo pour l&#8217;utilisateur</strong></span><br></h3>
+<div class="paragraph">
+<p>Pour permettre à l&#8217;utilisateur d&#8217;accéder à sudo, on peut passer en mode console et entrer cette commande : <strong><em>"adduser &lt;user&gt; sudo"</em></strong>. Pour passer en mode console, il faut presser une série de touches: <strong>Ctlr+Alt+F1</strong>, mais attention, les presser directement sur votre clavier risque de faire  passer votre machine physique en mode console. Pour pouvoir faire cette combinaison de touches sur la machine virtuelle, il faut utiliser le clavier virtuel (<strong>le soft Keyboard</strong>).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/touchesataper.png" alt="ImageDeLaSerieDeTouches" width="800" height="400">
+</div>
+<div class="title">Figure 20. La série de touches à taper sur le clavier virtuel</div>
+</div>
+<div class="paragraph">
+<p><span class="red"><strong>/!\</strong></span>
+Attention, c&#8217;est <strong>Alt gauche</strong>, <em>Alt droite</em> ne fonctionnera pas<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>Dès la console ouverte, et avant d&#8217;entrer la commande, il faut se connecter en tant que root :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/connexionEnRoot.png" alt="ImageDeLaConnexionEnRoot" width="400" height="200">
+</div>
+<div class="title">Figure 21. Connection en root</div>
+</div>
+<div class="paragraph">
+<p>Une fois connecté, nous avons entré la commande :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/entrercommande.png" alt="ImageDeLaCommandePourDonnerSudoAUser" width="600" height="300">
+</div>
+<div class="title">Figure 22. La commande pour donner les droits sudo à User</div>
+</div>
+<div class="paragraph">
+<p><em>&lt;user&gt; est à remplacer par l&#8217;id de l&#8217;utilisateur, nous avions fait simple, c&#8217;est user.</em></p>
+</div>
+<div class="paragraph">
+<p>Voilà, User est ajouté au groupe sudo. Il pourra accéder à cette fonctionnalité et l&#8217;utiliser en commande. On peut vérifier si la commande s&#8217;est déroulé en regardant les groupes auquels appartient l&#8217;utilisateur concerné avec groups &lt;user&gt;.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q3:]</strong></span> <em>Comment peut-on savoir à quels groupes appartient l&#8217;utilisateur User ?</em><br>
+Grâce à la commande : <strong><strong>"groups &lt;user&gt;"</strong></strong>.<br>
+Source : <a href="https://doc.ubuntu-fr.org/tutoriel/gestion_utilisateurs_et_groupes_en_ligne_de_commande">doc.ubuntu-fr.org</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q4.a:]</strong></span> <em>Quel est la version du noyau Linux utilisé par votre VM ?</em><br>
+Notre VM utilise la version "5.10.0-17-amd64 x86_64".<br>
+Source : <a href="https://doc.ubuntu-fr.org/kernel">doc.ubuntu-fr.org</a><br></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="_supléments_invités"><span class="blue"><strong>Supléments invités</strong></span><br></h3>
+<div class="paragraph">
+<p>Pour installer les supléments invités, nous avons insérer le disque virtuel des additions invités et entrer deux commandes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/emplacementAdditionsInvites.png" alt="ImageDeLEmplacementDesAdditionsinvites" width="800" height="400">
+</div>
+<div class="title">Figure 23. Emplacement des Supléments invités</div>
+</div>
+<div class="paragraph">
+<p><em>Il faut accéder à cette partie du menu pour insérer le cd.</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q4.b:]</strong></span> <em>À quoi servent les suppléments invités ? Donner 2 principales raisons de les installer.</em><br>
+Les Additions invité sont des pilotes adaptés pour les systèmes invités comme Windows ou ceux basés sur GNU/Linux qui permettent par exemple : le partage des dossiers ou encore une capture/libération dynamique du curseur lorsque celui-ci se déplace entre système hôte et système invité. Ils améliorent les performances du système d&#8217;exploitation invité et permettent une meilleure interaction entre la machine hôte et la machine invité.<br>
+Source : <a href="https://doc.ubuntu-fr.org/virtualbox_additions_invite">doc.ubuntu-fr</a><br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Une fois le cd inséré, nous avons ouvert un terminal et nous avons entré : "<strong><em>sudo mount /dev/cdrom /mnt</em></strong>".<br></p>
+</div>
+<div class="paragraph">
+<p><span class="red"><strong>/!\</strong></span> <em>Nous avons eu beaucoup de mal, car la syntaxe est très importante. Par exemple, l&#8217;espace après "cdrom" semble annodin mais est <strong>essentiel</strong> car cause des résultats différents en fonction de sa présense ou de son absence.</em></p>
+</div>
+<div class="paragraph">
+<p>Ensuite, nous avons entré : "<strong><em>sudo /mnt/VBoxLinuxAdditions.run</em></strong>".<br></p>
+</div>
+<div class="paragraph">
+<p>Et si tout s&#8217;est bien passé, une installation devrait se lancer, sinon un message d&#8217;erreur apparaîtra.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/InstAddInv.png" alt="ImageDeLInstallationDesAdditionsinvites" width="800" height="400">
+</div>
+<div class="title">Figure 24. Installation réussie des Supléments invités</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q4.c:]</strong></span> <em>À quoi sert la commande mount ?</em><br>
+La commande mount permet de demander au système d&#8217;exploitation de rendre un système de fichiers accessible, à un emplacement spécifié afin qu&#8217;ils puissent être lus ou écrits. Cette commande est utile pour onter des partitions de disques, des sytèmes de fichiers rédeau, des partages de fichiers distants, de disques US=SB, etc&#8230;&#8203; Dans notre cas, cette commande permettait de "monter" le disque virtuel pour le connecter et permettre d&#8217;accéder à ses fichiers.<br>
+Source : <a href="https://doc.ubuntu-fr.org/mount_fstab">doc.ubuntu-fr.org</a><br></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="_proxy"><span class="blue"><strong>Proxy</strong></span><br></h3>
+<div class="paragraph">
+<p>Parfois, il est nécessaire de configurer un proxy, en fonction d&#8217;où on use Internet.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/proxyDansApt.png" alt="ImageDeLaConfigurationDuProxyDansLeFichier" width="800" height="400">
+</div>
+<div class="title">Figure 25. Configuration du proxy directement dans le fichier apt.conf.d</div>
+</div>
+<div class="paragraph">
+<p>Pour connecter son terminal à internet à l&#8217;IUT, il est demandé de configurer le proxy en entrant deux commandes, mais ces configurations ne durent pas une fois le terminal fermé.<br>
+Les commandes :<br>
+1. <em>" export http_proxy=http://cache.univ-lille.fr:3128"</em><br>
+2. <em>" export https_proxy=https://cache.univ-lille.fr:3128"</em><br></p>
+</div>
+<div class="paragraph">
+<p>Pour éviter de le re-rentrer à chaque fois dans le terminal, on peut entrer les commandes directement dans le fichier <strong>".bashrc"</strong>.
+Pas de besoin de sudo, c&#8217;est un fichier appartenant à l&#8217;utilisateur et n&#8217;influant que son terminal.<br>
+Les commandes entrées dans ce fichier seront exécutés à chaque lancement d&#8217;un nouveau terminal.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red"><strong>Fin du correctif du rapport intermédiaire.</strong></span></p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_propos_de_debian"><strong>A propos de Debian</strong><br></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_quelques_questions"><span class="blue"><strong>Quelques questions</strong></span><br></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q1:]</strong></span> Qu’est-ce que le <em>Projet Debian</em> ? D’où vient le nom <em>Debian</em> ?<br>
+The Debian Project is a worldwide group of volunteers who endeavor to produce an operating system distribution that is composed entirely of free software. The name comes from the names of the creator of Debian, Ian Murdock, and his wife, Debra.<br>
+Source : <a href="https://www.debian.org/doc/manuals/project-history/project-history.en.pdf">debian.org</a><br>
+<br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q2:]</strong></span> Il existe 3 durées de prise en charge. Quelle sont les durées de ces prises en charge ?<br>
+Debian annonce régulièrement une nouvelle version stable. Les utilisateurs peuvent s’attendre à une prise en charge complète pendant trois années pour chaque publication et deux années supplémentaires avec LTS.<br>
+Source : <a href="https://www.debian.org/releases/index.fr.html">debian.org</a><br>
+<br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q3:]</strong></span> Pendant combien de temps les mises à jour de sécurité seront-elles fournies ?<br>
+L&#8217;équipe en charge de la sécurité essaye de prendre en charge la distribution stable environ une année après que la version stable suivante a été publiée, sauf lorsqu&#8217;une autre distribution stable est publiée la même année. Il n&#8217;est pas possible de prendre en charge trois distributions, c&#8217;est déjà bien assez difficile avec deux.<br>
+Source : <a href="https://www.debian.org/security/faq.fr.html#lifespan">debian.org</a><br>
+<br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q4:]</strong></span> Combien de version au minimum sont activement maintenues par Debian ? Donnez leur nom générique (= les types de distribution).<br>
+Debian maintiennent au moins 3 versions.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Debian 11 ("Bullseye") — actuelle version "stable" ;</p>
+</li>
+<li>
+<p>Debian 10 ("Buster") — actuelle version "oldstable" ;</p>
+</li>
+<li>
+<p>Debian 9 ("Stretch") — actuelle version "oldoldstable" avec prise en charge à long terme LTS ;</p>
+</li>
+<li>
+<p>Debian 8 ("Jessie") — version archivée avec prise en charge à long terme étendue LT
+S ;<br>
+<br>
+Source : <a href="https://www.debian.org/releases/index.fr.html">debian.org</a><br>
+<br></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><span class="green"><strong>[Q5:]</strong></span> Chaque distribution majeur possède un nom de code différent. Par exemple, la version majeur actuelle (Debian 11) se nomme Bullseye. D’où viennent les noms de code données aux distributions ?<br>
+Ce sont juste des noms de code. Quand une distribution Debian est en cours de développement, elle n&#8217;a aucun numéro de version mais un nom de code. Le but de ces noms de code est de faciliter la copie sur les miroirs des distributions Debian (si un véritable répertoire comme unstable est soudainement renommé en stable, beaucoup de choses devraient être inutilement téléchargées).<br>
+Source : <a href="https://www.debian.org/doc/manuals/debian-faq/ftparchives.fr.html">debian.org</a><br>
+<br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q6:]</strong></span> L’un des atouts de Debian fut le nombre d’architecture (≈ processeurs) officiellement prises en charge. Combien et lesquelles sont prises en charge par la version Bullseye ?<br>
+8 architectures :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PC 32 bits (i386) et PC 64 bits (amd64)<br></p>
+</li>
+<li>
+<p>ARM 64 bits (arm64)<br></p>
+</li>
+<li>
+<p>ARM EABI (armel)<br></p>
+</li>
+<li>
+<p>ARMv7 (ARM avec unité de calcul flottant, armhf)<br></p>
+</li>
+<li>
+<p>MIPS petit-boutiste (mipsel)<br></p>
+</li>
+<li>
+<p>MIPS 64 bits petit-boutiste (mips64el)<br></p>
+</li>
+<li>
+<p>PowerPC 64 bits petit-boutiste (ppc64el)<br></p>
+</li>
+<li>
+<p>IBM System z (s390x)<br>
+<br>
+Source : <a href="https://www.debian.org/releases/stable/arm64/release-notes.fr.pdf">debian.org</a><br>
+<br></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><span class="green"><strong>[Q7:]</strong></span> Première version avec un nom de code<br>
+◦ Quelle a était le premier nom de code utilisé ?<br>
+  Hamm<br>
+◦ Quand a-t-il été annoncé ?<br>
+ _ _ 24 juillet 1998<br>
+◦ Quelle était le numéro de version de cette distribution ?<br>
+ _ _ 2.0<br>
+Source : <a href="https://www.debian.org/releases/hamm/">debian.org</a><br>
+<br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q8:]</strong></span> Dernier nom de code attribué<br>
+◦ Quel est le dernier nom de code annoncée à ce jour ?<br>
+ _ _ Bookworm<br>
+◦ Quand a-t-il été annoncé ?<br>
+ _ _ 16-04-2018<br>
+◦ Quelle est la version de cette distribution ?<br>
+ _ _ 12.0<br>
+Source : <a href="https://www.debian.org/releases/bookworm/">debian.org</a><br>
+<br></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="_installation_préconfigurée"><span class="blue"><strong>Installation préconfigurée</strong></span></h3>
+<div class="paragraph">
+<p>Pour faire l&#8217;installation préconfiguré, il faut commencer par créer une machine de la même manière que pour l&#8217;installation manuelle. Il faut donc répéter les étapes du début du rapport pour créer une nouvelle machine virtuelle avec VirtualBox, en s&#8217;arrêtant juste avant l&#8217;insertion du fichier.iso.<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup>
+- Il faut récupérer l&#8217;archive autoinstall.zip sur Moodle et le décompressez dans le réperoire de la machine virtuelle.<br>
+- Ensuite, il faut remplacer la chaine @@UID@@ dans le fichier <em>SAE203-Debian.viso</em>.
+Pour cela le plus simple est d&#8217;exécuter cette commande dans le même répertoire que celui contenant le fichier <em>S203-Debian11.viso</em>: "sed -i -E "s/(--iprt-iso-maker-file-marker-bourne-sh).*$/\1=$(cat /proc/sys/kernel/random/uuid)/" S203-Debian11.viso"
+Sinon, il est possible, de directement aller dans le fichier.viso et de remplacer le @@UID@@ par une une chaine que vous obtenez en allant sur un site fournissant des clés unique tel que : <a href="https://www.uuidgenerator.net/" class="bare">www.uuidgenerator.net/</a>.<br>
+- Puis, il faut insérer le fichier S203_Debian11.viso dans le lecteur optique de la machine virtuelle.
+- Enfin, il faut démarrer la machine virtuelle et laissez l&#8217;installation se faire.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Questions:]</strong></span> Ajustement de la pré-configuration<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="green">a)</span> Ajouter le droit d’utiliser sudo à l’utilisateur standard<br>
+<span class="green">b)</span> Installer l’environnement MATE.<br>
+<span class="green">c)</span> Ajouter les paquets suivants :<br>
+ _ <span class="green">c.1)</span> sudo : sinon la gestion sudo est inutile<br>
+ _ <span class="green">c.2)</span> git, sqlite3, curl : pour préparer l’installation de la semaine prochaine<br>
+ _ <span class="green">c.3)</span> bash-completion : va vous simplifier grandement l’écriture des lignes de commande<br>
+ _ <span class="green">c.4)</span> neofetch : pas très utile mais c’est un classique dans son genre<br></p>
+</div>
+<div class="paragraph">
+<p><span class="green">a)</span> Il faut modifier le fichier de configuration "preseed-fr.cfg" et ajouter le groupe sudo à user.<br>
+Source : <a href="https://www.debian.org/releases/stable/amd64/apbs04.fr.html">www.debian.org</a><br></p>
+</div>
+<div class="paragraph">
+<p><span class="green">b)</span> Il faut changer "standard" en "mate-desktop"<br>
+Source : <a href="https://www.debian.org/releases/stable/amd64/apbs04.fr.html">www.debian.org</a><br></p>
+</div>
+<div class="paragraph">
+<p><span class="green">c)</span> Dans le fichier preeseed, il y faut ajouter :<br>
+<span class="green">c.1)</span> apt-get install sudo<br>
+Source : <a href="https://documentation.arcserve.com/Arcserve-UDP/Available/V6.5/ENU/Bookshelf_Files/HTML/Agent%20Online%20Help%20Linux/Content/AgentforLinuxUserGuide/udpl_config_sudo_debian.html">documentation.arcserve.com</a><br>
+<span class="green">c.2)</span>  - apt install git-all<br>
+      Source : <a href="https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git">git-scm.com</a><br>
+      - apt-get install sqlite3<br>
+      Source : <a href="https://doc.ubuntu-fr.org/sqlite">doc.ubuntu-fr.org</a><br>
+      - apt-get install curl<br>
+      Source : <a href="https://www.cyberciti.biz/faq/howto-install-curl-command-on-debian-linux-using-apt-get/">cyberciti</a><br>
+<span class="green">c.3)</span> apt-get install bash-completion<br>
+Source : <a href="https://www.howtoforge.com/how-to-add-bash-completion-in-debian">www.debian.org</a><br>
+<span class="green">c.4)</span> apt-get install neofetch<br>
+Source : <a href="https://www.cyberciti.biz/howto/neofetch-awesome-system-info-bash-script-for-linux-unix-macos/">cyberciti</a><br></p>
+</div>
+<div class="paragraph">
+<p>Il ne reste plus que maintenant à relancer l&#8217;installation et à vérifier les changements.<br></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_globale_de_gitea">Configuration globale de gitea</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prérequis"><span class="blue"><strong>Prérequis</strong></span></h3>
+<div class="paragraph">
+<p>Nous allons maintenant procéder à la configuration de gitea. Avant cela, il y a quelques préliminaires :<br>
+. Ouvrez un terminal et entrez les commandes suivantes
+. git config --global user.name "Prénom Nom"
+. git config --global user.email "votre@email"
+. git config --global init.defaultBranch "master"
+. puis installez le paquet gui avec cette commande : apt install git-gui</p>
+</div>
+<div class="paragraph text-center">
+<p><em>Bien sûr, il faut remplacer Prénom et Nom par les vôtre, de même pour l&#8217;email.</em></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q1.a:]</strong></span> <em>Qu’est-ce que le logiciel <strong>git-gui</strong> ? Comment se lance-t-il ?</em><br>
+GUI de Git GUI est l&#8217;abréviation de Graphical User Interface. C&#8217;est une interface graphique pour git qui permet de visualiser et de modifier les fichiers de suivi, d&#8217;effectuer les opérations de base comme pull, push, commit etc&#8230;&#8203; C&#8217;st donc une alternative aux lignes de commandes de git, améliorant ainsi son accesibilité mais le rendant plus limité. Pour lancer git-gui, il faut ouvrir un terminal et taper "git-gui".<br>
+Source : <a href="https://git-scm.com/docs/git-gui/">git-scm.com</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q1.b:]</strong></span> <em>Même question pour *gitk*</em><br>
+Gitk est un navigateur de dossier pour git, il permet de naviguer dans l&#8217;historique des dépôts, des commits, des branches et des balises d&#8217;un référentiel plus facilement. Il permet aussi des fonctionnalités plus avancées comme la recherche de commit, la comparaison entre différents commit, le gestion des branches et des balises, etc&#8230;&#8203; Gitk peut être lancé en ouvrant un terminal et en tapant "gitk".<br>
+Source : <a href="https://git-scm.com/docs/gitk">git-scm.com</a><br></p>
+</li>
+<li>
+<p><span class="green"><strong>[Q1.c:]</strong></span> <em>Quelle sera la ligne de commande git pour utiliser par défaut le proxy de l’université sur tous vos projets git ?</em><br>
+git config --global http.proxy [proxy](ici celui de l&#8217;université)<br>
+Source : <a href="https://gist.github.com/evantoli/f8c23a37eb3558ab8765">gist.github.com</a><br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Voilà, git est configuré, et git-gui est installé, il est maintenant nécéssaire de rediriger les messages arrivant sur le port 3000 de la machine physique sur le port 3000 de la machine virtuelle. Pour cela il faut ouvrir le panneau de configuration de la machine virtuelle et reproduire les redirections de ports comme montrées avec l&#8217;image dessous, en particulier la petite fenêtre en bas, appelée <em>"Règles de redirection de ports"</em>, que vous obtenez en cliquant sur : &#8594;Configuration &#8594;Réseau &#8594;Avancé &#8594;Redirection de ports.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/RedirectionReseaux.png" alt="ImageDeLaConfigurationDesRedirectionsReseaux" width="1200" height="600">
+</div>
+<div class="title">Figure 26. Redirection réseau à reproduire</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_installation"><span class="blue"><strong>Installation</strong></span></h3>
+<div class="paragraph">
+<p>C&#8217;est important de faire attention à ce que l&#8217;on télécharge en ligne. Gitea ne faisant pas partie des paquets Debian officiel, il faudra faire attention à ce que l&#8217;on télécharge ou à la manière dont nous le téléchargeons.<br>
+<strong><span class="red">/!\</span> Il faut toujours se fier à la documentation officielle !</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Pour installer Gitea, il faut se rendre sur cette page: " <a href="https://dl.gitea.com/gitea/" class="bare">dl.gitea.com/gitea/</a> " et chercher la version que l&#8217;on veut installer. Soit la version la version <span class="red"><strong>1.18.5</strong></span> pour <span class="red"><strong>linux-amd64</strong></span>.</p>
+</div>
+<div class="paragraph">
+<p>Le plus simple ensuite est d&#8217;installer le paquet avec la commande wget.<br>
+<span class="red"><strong>/!\ Si elle n&#8217;est pas installé, il faut entrer d&#8217;abord : 0. "apt install wget".</strong><br>
+Il peut être aussi utilile de vérifier que git soit bien installé avec la commande: "git --version" (version&gt;=2.0).</span><br></p>
+</div>
+<div class="paragraph">
+<p>Avec la version que l&#8217;on veut, cela donnerait :<br>
+1. "wget -O gitea <a href="https://dl.gitea.com/gitea/1.18.5/gitea-1.18.5-linux-amd64" class="bare">dl.gitea.com/gitea/1.18.5/gitea-1.18.5-linux-amd64</a> ".<br>
+Il est nécéssaire ensuite de rajouter les droits d&#8217;éxécution sur le fichier :<br>
+2. "chmod +x gitea"<br></p>
+</div>
+<div class="paragraph">
+<p>Gitea signe tous ses fichiers binaires avec une clé de chiffrement afin d&#8217;empêcher les modifications involontaires de ces fichiers. Il faut aller sur ce site : <a href="https://keys.openpgp.org/search?q=teabot%40gitea.io">keys.openpgp.org</a>, télécharger le fichier et entrer ensuite ces commandes :<br>
+3. gpg --keyserver keys.openpgp.org --recv 7C9E68152594688862D62AF62D9AE806EC1592E2<br>
+4. gpg --verify gitea-1.18.5-linux-amd64.asc gitea-1.18.5-linux-amd64</p>
+</div>
+<div class="paragraph text-center">
+<p><span class="red"><strong>Des Difficultés !</strong><br>
+Je n&#8217;ai pas réussi à faire fonctionner les clés. Le terminal me renvoie à chaque fois une erreur disant que le contenu est inutilisable. Je n&#8217;ai pas encore touvé comment il faut faire.</span></p>
+</div>
+<div class="paragraph">
+<p>Il vaut mieux ensuite créer une structure de dossier et un utilisateur qui servira à lancer Gitea.
+5.
+adduser \
+   --system \
+   --shell /bin/bash \
+   --gecos 'Git Version Control' \
+   --group \
+   --disabled-password \
+   --home /home/git \
+   git</p>
+</div>
+<div class="paragraph">
+<p>6.
+mkdir -p /var/lib/gitea/{custom,data,log}
+chown -R git:git /var/lib/gitea/
+chmod -R 750 /var/lib/gitea/
+mkdir /etc/gitea
+chown root:git /etc/gitea
+chmod 770 /etc/gitea
+cp gitea /usr/local/bin/gitea</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration"><span class="blue"><strong>Configuration</strong></span></h3>
+<div class="paragraph">
+<p>On peut maintenant lancer Gitea. Pour cela, on doit d&#8217;abord vérifier que le système est bien démarré en entrant cette commande : "systemctl status gitea.service".<br>
+Vous devrez avoir quelque chose de similaire à l&#8217;image ci-dessous.
+Si c&#8217;est le cas, il faut ensuite utiliser la machine physique pour se rendre sur cette url : <a href="http://localhost:3000" class="bare">localhost:3000</a>. Si les résultats ne sont pas ceux attendus, il est probable que l&#8217;erreur soit survenue lors de la redirection des ports.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/MessageSucces.png" alt="ImageDuResultatVoulue" width="400" height="200">
+</div>
+<div class="title">Figure 27. Resultat souhaité de "systemctl status gitea.service".</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/ConfigInit.png" alt="ImageDuResultatDeLURL" width="400" height="200">
+</div>
+<div class="title">Figure 28. Resultat souhaité en ouvrant l&#8217;url.</div>
+</div>
+<div class="paragraph">
+<p>Il faut ensuite mettre cette configuration :</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Base De Données</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SQLite3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gitea</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mot De Passe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gitea</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Email</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">git@localhost</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><span class="red">/!\</span> Attention à bien rentrer les données, personnellement, je ne me suis pas rendu compte que l&#8217;on pouvait modifier la base de données, me donnant cette erreur :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/ErreurGitea.png" alt="ImageDeLErreurDeLaConfigurationDeGitea" width="1000" height="500">
+</div>
+<div class="title">Figure 29. Resultat non souhaité de la configuration.</div>
+</div>
+<div class="paragraph">
+<p>car la base de données paramétrés ne correspondait pas ducoup à celle qui était configuré. Il fallait la changer pour <em>Sqlite3</em>.</p>
+</div>
+<div class="quoteblock">
+<div class="title">Une citation approprié&#8230;&#8203;</div>
+<blockquote>
+L&#8217;intelligence est, hélas ! toujours une énigme, mais pas plus que la bêtise&#8230;&#8203;
+</blockquote>
+<div class="attribution">
+&#8212; Alan Turing
+</div>
+</div>
+<div class="paragraph">
+<p>Il ne faut pas non plus oublier de protéger /etc/gitea et /etc/gitea/app/ini, en vérifiant que les permissions pour modifier ce fichier ne soit donné qu&#8217;à l&#8217;utilisateur (de préférence non priviligié) qui exécute l&#8217;instance de <em>Gitea</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="green"><strong>[Q3:]</strong></span> <em>Comment faire pour la mettre à jour sans devoir tout reconfigurer ? Essayez en mettant à jour vers la version 1.19.</em><br>
+Il faut :</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sauvegarder les données en copiant les fichiers /var/lib/gitea et /etc/gitea/app.ini</p>
+</li>
+<li>
+<p>Télécharger la dernière version de <em>Gitea</em></p>
+</li>
+<li>
+<p>Arreter votre instance de <em>Gitea</em> avec "systemctl stop gitea"</p>
+</li>
+<li>
+<p>Remplacer l&#8217;ancien fichier binaire avec celui téléchargé</p>
+</li>
+<li>
+<p>Relancer <em>Gitea</em><br>
+Source : <a href="https://docs.gitea.io/fr-fr/upgrade-from-gitea/">docs.gitea.io-fr</a><br></p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utilisation"><span class="blue"><strong>Utilisation</strong></span></h3>
+<div class="paragraph">
+<p>Une fois que <em>Gitea</em> est installé et configué, il n&#8217;y a plus qu&#8217;à l&#8217;utiliser !</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/EspaceGitea.png" alt="ImageDeLEspaceGitea" width="800" height="400">
+</div>
+<div class="title">Figure 30. Bienvenue sur Gitea.</div>
+</div>
+<div class="paragraph">
+<p>Ajoutons :
+* Un projet directement depuis l&#8217;interface web de <em>Gitea</em>.
+* Mes rapports de cette Saé.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pour créer un projet directement depuis l&#8217;interface <em>Gitea</em>, il faut appuyer en haut à droite sur le <strong>+</strong> et puis sur <strong>"Créer un nouveau dépot"</strong> et sélectionner les paramètres voulus.<br></p>
+</li>
+<li>
+<p>Pour ajouter mes rapports, j&#8217;ai fait :<br></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>"git init" dans le répertoire contenant mes rapports.<br></p>
+</li>
+<li>
+<p>"git add (nom du fichier)" sur chacun de mes rapports pour les ajouter.<br></p>
+</li>
+<li>
+<p>"git commit -m "MesRapports" pour les commit puis,<br></p>
+</li>
+<li>
+<p>"git push" mais cela n&#8217;a pas fonctionné et me renvoyait une <span class="red">erreur</span>.<br></p>
+</li>
+<li>
+<p>Il fallait faire avant : "git remote add gitea <a href="http://localhost:3000/gitea/Rapports.git" class="bare">localhost:3000/gitea/Rapports.git</a> " pour "lier" le <em>Git</em> et le <em>Gitea</em>.<br></p>
+</li>
+<li>
+<p>Enfin "git push --set-upstream gitea master" Pour pousser le commit sur le <em>Git</em> et ainsi sur le <em>Gitea</em>.<br></p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Depots.png" alt="ImageDesDepotsSurGitea" width="800" height="400">
+</div>
+<div class="title">Figure 31. Mes dépôts sur Gitea.</div>
+</div>
+<div class="paragraph">
+<p>Ainsi les rapports y ont bien étés déposés et c&#8217;est aussi ainsi que celui-ci se conclut.
+Nous aurions vu comment paramétrer l&#8217;installation et configurer une machine virtuelle pour manipuler un logiciel tel que gitea.</p>
+</div>
+<div class="paragraph">
+<p>Mes principale source pour rédiger ce rapport ont étés :<br>
+- <a href="https://doc.ubuntu-fr.org/mount_fstab" class="bare">doc.ubuntu-fr.org/mount_fstab</a><br>
+- <a href="https://www.debian.org" class="bare">www.debian.org</a><br>
+A eux seul, ces sites représentent 3/4 de mes sources. 😃️</p>
+</div>
+<div class="paragraph">
+<p><strong>Rappport intermédiaire : <em>FOURMAINTRAUX Camille</em>, <em>Vely Maxence</em> - <em>19/02/23</em>.</strong><br>
+<strong>Rapport final : <em>FOURMAINTRAUX Camille</em> - <em>21/03/23</em> - Groupe <em>E</em>.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Nous avons tout sélectionné en français et nous avons mis le clavier en azerty.
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Cela nous a posé un problème lors de l&#8217;installation, on ne comprenait pas pourquoi ça ne fonctionnait pas.
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. Attention à bien placer cette machine dans le fichier /usr/local/virtual_machine/infoetu/votre_login.
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-03-26 11:53:58 +0200
+</div>
+</div>
+</body>
+</html>

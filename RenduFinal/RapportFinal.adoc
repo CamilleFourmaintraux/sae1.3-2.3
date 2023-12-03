@@ -1,0 +1,600 @@
+:imagesdir: ./images
+:hide-uri-scheme:
+
+//role:
+//  red:
+//    font_color: #ff0000
+//  green:
+//    font_color: #00aa00
+//  blue:
+//    font_color: #0000ff
+
+# *Rapport _SAE 2.03_ : Installation d'une machine virtuelle _Debian_.*
+
+## Préparation d'une machine virtuelle
+### [blue]#*Prérequis de la machine physique*# +
+Avant de procéder, nous avons déjà vérifié si la machine physique avait les prérequis pour suppoter la machine virtuelle. Notamment en utilisant des commandes tel que : *"free"* et *"dh"* avec l'option *-h* pour que l'affichage soit plus lisible.
+
+### [blue]#*Création de la machine virtuelle*# +
+Après les vérifications des prérequis, on peut démarrer le création de la machine virtuelle. Nous avons lancé Virtual Box et créer une nouvelle machine.
+Le logiciel nous demande de saisir un nom, un emplacement ainsi qu'une version.
+
+.Création de la machine virtuelle
+image::Creermachine.png[ImageDeLaCréationDeLaMachineVirtuelle,800,400]
+
+_Nous avons choisi de nommer notre machine *"exemple sae203"* et *Debian 64 bits* pour la version._
+
+* [green]#*[Q1.a:]*# _Que signifie *"64 bits"* dans *"Debian 64bits"* ?_ +
+Cela signifie que c'est la version du système d'exploitation conçue pour fonctionner sur des processeurs 64 bits, soit un proccesseur peut accéder à **2^64** adresses mémoire différentes. En bref, toute quantité de mémoire supérieure à *4 Go* peut être facilement gérée par le système. +
+Source : https://fr.wikipedia.org/wiki/Processeur_64_bits[wikipedia]
+
+Il faut ensuite définir une quantité de RAM.
+
+.Allocation de la RAM
+image::RAM.png[ImageDeLaRAM,1200,600]
+
+_Nous avons choisi *2048Mb*._
+
+Ensuite, il faut indiquer la taille du disque dur virtuel.
+
+.Allocation du stockage
+image::Allocation_stockage.png[ImageDeLAllocationDuStockage,800,400]
+
+_Nous avons choisi *20Go*._
+
+<<<
+
+Récapitulatif:
+
+[cols="1,1"]
+|===
+|Version
+|Debian 64 bits
+
+|RAM
+|2048Mb
+
+|Taille du disque dur
+|20Go
+|===
+
+* [green]#*[Q1.b:]*# _Quel est la configuration réseau utilisé par défaut ?_ +
+La configuration réseau par défaut se compose de  deux adresses : lo et ens3. +
+Source : https://guide.ubuntu-fr.org/server/network-configuration.html[guide.ubuntu-fr] +
+
+* [green]#*[Q1.c:]*# _Quel est le nom du fichier xml contenant la configuration de votre machine ?_ +
+Le fichier XML contenant la configuration réseau de la machine est _"/etc/network/interfaces"_. +
+Le fichier de configuration de la mchine virtuelle lui s'appelle VirtualBox.xml +
+Source : https://fr.wikibooks.org/wiki/Administration_r%C3%A9seau_sous_Linux[wikibooks] +
+
+* [green]#*[Q1.d:]*# _Sauriez-vous le modifier directement ce fichier pour mettre 2 processeurs à votre machine?_ +
+Il y a plusieurs étapes : +
+. Ouvrir le fichier XML de configuration +
+. Localiser la sanction nommée 'vcpu' ou 'cpu' +
+. Modifier la valeur de 'vcpu' ou de 'cpu' pour indiquer le nombre de proccesseurs souhaités (ici 2) +
+. Enrengistrer les modifications apportés et rédemarrer la machine virtuelle. +
+Source : https://www.debian-fr.org/t/doc-sur-install-bi-processeur/19107/11[debian-fr] +
+
+Enfin, avant de démarrer la machine, il faut insérer virtuellement le disque *iso* de _Debian_ pour installer l'_OS_. Celui-ci est trouvable sur https://www.debian.org/[le site officiel de Debian] sur https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/[cette page.]
+
+* [green]#*[Q2.a:]*# _Qu'est ce qu'un fichier iso bootable ?_ +
+Un fichier iso est un format de fichier numérique reproduisant un CD ou un DVD physique. On dit d'un disque qu'il est « bootable » lorsqu'il contient les composants logiciels nécessaires pour être démarré directement au chargement de l'ordinateur. +
+Source : https://www.ionos.fr/digitalguide/serveur/know-how/quest-ce-quun-fichier-iso/[ionos] +
+
+<<<
+
+### [blue]#*Installation de l'OS*# +
+Une fois la machine lancé, il demande de choisir le type d'installation. Nous avons choisi une installation graphique pour que les images soit plus parlante. +
+Il est ensuite demandé d'entrer des informations relatives au language, comme la langue de l'interface, le pays, ou la configuration du clavier.footnote:disclaimer[Nous avons tout sélectionné en français et nous avons mis le clavier en azerty.]
+
+[.float-group]
+--
+[.left]
+.Choix de la langue
+image::choixlangue.png[ImageDuChoixDeLaLangue,400,200,align="center"]
+
+[.right]
+.Choix du pays
+image::choixpays.png[ImageDuChoixDuPays,400,200,align="center"]
+
+[.center]
+.Choix du clavier
+image::choixclavier.png[ImageDuChoixDuClavier,400,200,align="center"]
+--
+
+Il est demandé de donner un nom à la machine.
+Nous avons nommé la machine "serveur".
+
+.Nommage de la machine virtuelle
+image::nomdemachine.png[ImageDuNommageDeLaMachineVirtuelle,1200]
+
+Il sera demandé ensuite d'entrer un mot de passe pour root. Nous avons fait simple et avons mis _"root"_.
+
+Il faut ensuite créer un nouveau utilisateur : +
+
+[.float-group]
+--
+[.left]
+.Définition du mot de passe pour root +
+image::mdpRoot.png[ImageDuNouveauMotDePassePourRoot,400,200]
+
+[.center]
+.Définition du nom de l'utilisateur +
+image::newUserName.png[ImageDuNouveauNomPourLeNouveauUtilisateur,400,200]
+--
+
+Nous l'avons appelé _"User"_, avec l'id _"user"_ et pour le mot de passe... _"user"_.
+
+[.float-group]
+--
+[.left]
+.Définition de l'ID de l'utilisateur
+image::idNewUser.png[ImageDuNouveauIdPourLeNouvelUtilisateur,400,200]
+
+[.center]
+.Définition du mot de passe de l'utilisateur
+image::mdpUser.png[ImageDuNouveaumotDePassePourLeNouvelUtilisateur,400,200]
+--
+
+Il faut maintenant procéder aux partionnements des disques. +
+
+Pour plus de simplicité, nous avons fait une partition simple, sur un disque entier.
+Pour le choix du disque à partionner, il devrait en avoir qu'un seul, nous avons donc choisi : (_*SCSI1 (0,0,0) (sda) - 21.5 GB ATA VBOX HARDDISK*_)
+
+[.float-group]
+--
+[.left]
+.Partitionnement simple sur le disque entier
+image::partition.png[ImageDeLaPartitionSimpleDesDisque,400,200]
+
+[.center]
+.Choix du type de shéma de la partition
+image::idNewUser.png[ImageDuChoixDuTypeDeShemaDeLaPartition,400,200]
+--
+
+Il sera demander ensuite de confirmer le partionnement. Le partionnement étant une action avec certains inconvénient, l'option est par défault sur non. Il faut faire attention à cocher _"oui"_ avant d'appuyer sur continuer.
+
+[.float-group]
+--
+[.left]
+.Choix du type de shéma de la partition
+image::idNewUser.png[ImageDuChoixDuTypeDeShemaDeLaPartition,400,200]
+
+[.center]
+.Confirmation du partionnement
+image::confirmerPartition.png[ImageDeLaConfirmationPourLePartionnment,400,200]
+--
+
+Une fenêtre récapitulant le partionnement s'affiche ensuite, il faut sélectionner _"Terminer le partionnement et appliquer les changements"_.
+
+Après un chargement, nous avons choisi le pays du miroir Debian : évidemment en France.
+
+.Choix du pays du miroir
+image::choixpaquets.png[ImageDuChoixDuPaysDuMiroir,1200,600]
+
+Puis il demande un nom de domaine que nous avons laissé vide.
+Après un autre chargement, il propose d'analyser d'autres supports pour qu'ils soient utilisés par l'outil de gestion des paquets. Nous avons refusé.
+
+Pour le miroir, nous avons choisi : debian.polytech-lille.fr["debian.polytech-lille.fr"]
+
+.Choix du miroir de l'archive Debian
+image::choixMiroirPourDebian.png[ImageDuChoixDuMiroirDeDebian,400,250]
+
+Le miroir Debian de polytech est le plus proche et donc le plus efficace.
+
+et nous avons entré le mandataire http (proxy) suivant :
+
+.Choix du miroir de l'archive Debian
+image::proxy.png[ImageDuProxy,400,250]
+
+_Souvent, il est compliqué de copier-coller dans les machines virtuelles, il faudra donc probablement le recopier à la main._
+
+A la suite d'un autre chargement, il nous est proposé d'envoyer des données pour participer à une étude statitique. Nous avons refusé.
+
+*Nous arrivons à la sélection des logiciels de base.* Nous avons sélectionné : +
+1. environnement de bureau _Debian_ +
+2. _MATE_ +
+3. serveur web +
+4. serveur _SSH_ +
+5. utilitaires usuels du système +
+*Attention à bien décocher _Gnome_ après avoir coché _MATE_*
+
+* [green]#*[Q2.b:]*# _Qu'est-ce que MATE ? GNOME ?_ +
+L'environnement de Bureau MATE est la continuation de GNOME.2 par une communauté non satisfaite par GNOME.3. GNOME est un environnement de bureau attrayant à la fois libre et l'un des plus largement utilisés sur GNU/Linux. un environnement de bureau est un logiciel qui permet de manier l'ordinateur à travers une interface utilisateur qui se présente en mode graphique sous l'aspect d'un bureau. +
+Source : https://doc.ubuntu-fr.org/gnome[doc.ubuntu-fr]
+
+Ensuite, nous avons installé GRUB sur le disque principal, et nous avons choisi le disque qu'il nous proposait.
+
+////
+[.float-group]
+--
+[.left]
+.GRUB
+image::GRUB.png[ImageDeGrub,400,200]
+
+[.center]
+.Installation de GRUB
+image::installGRUB.png[ImageDeLInstallationDeGrub,400,200]
+--
+//Les images GRUB ont disparus... alors je les met en commentaires en attendant de les retrouver.
+////
+
+L'installation est enfin finie. Il faut redémarrer la machine en faisant attention de bien retirer le cd .iso d'installation car le laisser relancerait l'installation. Il devrait être automatiquement retiré mais cela ne coûte rien de vérifier.
+
+.Fin de l'installation.
+image::finInstallation.png[ImageDeLaFinDeLInstallation,1200,600]
+
+_Il suffit de se connecter et la machine virtuelle est globalement prête à l'emploi._
+
+* [green]#*[Q2.c:]*# _Qu'est-ce qu'un serveur web ?_ +
+Un serveur web est soit, un logiciel de service de ressources web (serveur HTTP), soit un serveur informatique (ordinateur) qui répond à des requêtes en utilisant principalement le protocole HTTP. +
+Source : https://developer.mozilla.org/fr/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server[developer.mozilla.org] +
+* [green]#*[Q2.d:]*# _Qu'est-ce qu'un serveur ssh ?_ +
+SSH, ou Secure Socket Shell, est un protocole réseau qui permet aux administrateurs d'accéder à distance à un ordinateur, en toute sécurité. +
+Source : https://doc.ubuntu-fr.org/ssh[doc.ubuntu-fr.org] +
+* [green]#*[Q2.e:]*#" _Qu'est-ce qu'un serveur mandataire ?_ +
+Un serveur proxy (mandataire en français) est un ordinateur qui intercepte et gère le trafic entre deux appareils, réseaux ou protocoles. Il peut faire office de pare-feu, de filtre, de cache ou faciliter les connexions réseau partagées. +
+Source : https://help.gnome.org/users/gnome-help/stable/net-proxy.html.fr[help.gnome.org] +
+
+<<<
+
+## Préparation du système
+### [blue]#*Accès sudo pour l'utilisateur*# +
+Pour permettre à l'utilisateur d'accéder à sudo, on peut passer en mode console et entrer cette commande : *_"adduser <user> sudo"_*. Pour passer en mode console, il faut presser une série de touches: *Ctlr+Alt+F1*, mais attention, les presser directement sur votre clavier risque de faire  passer votre machine physique en mode console. Pour pouvoir faire cette combinaison de touches sur la machine virtuelle, il faut utiliser le clavier virtuel (*le soft Keyboard*).
+
+.La série de touches à taper sur le clavier virtuel
+image::touchesataper.png[ImageDeLaSerieDeTouches,800,400]
+
+[red]#*/!\*# 
+Attention, c'est *Alt gauche*, _Alt droite_ ne fonctionnera pasfootnote:[Cela nous a posé un problème lors de l'installation, on ne comprenait pas pourquoi ça ne fonctionnait pas.]
+
+Dès la console ouverte, et avant d'entrer la commande, il faut se connecter en tant que root :
+
+.Connection en root
+image::connexionEnRoot.png[ImageDeLaConnexionEnRoot,400,200]
+
+Une fois connecté, nous avons entré la commande :
+
+.La commande pour donner les droits sudo à User
+image::entrercommande.png[ImageDeLaCommandePourDonnerSudoAUser,600,300]
+
+_<user> est à remplacer par l'id de l'utilisateur, nous avions fait simple, c'est user._
+
+Voilà, User est ajouté au groupe sudo. Il pourra accéder à cette fonctionnalité et l'utiliser en commande. On peut vérifier si la commande s'est déroulé en regardant les groupes auquels appartient l'utilisateur concerné avec groups <user>.
+
+* [green]#*[Q3:]*# _Comment peut-on savoir à quels groupes appartient l'utilisateur User ?_ +
+Grâce à la commande : ***"groups <user>"***. +
+Source : https://doc.ubuntu-fr.org/tutoriel/gestion_utilisateurs_et_groupes_en_ligne_de_commande[doc.ubuntu-fr.org] +
+
+* [green]#*[Q4.a:]*# _Quel est la version du noyau Linux utilisé par votre VM ?_ +
+Notre VM utilise la version "5.10.0-17-amd64 x86_64". +
+Source : https://doc.ubuntu-fr.org/kernel[doc.ubuntu-fr.org] +
+
+<<<
+
+### [blue]#*Supléments invités*# +
+Pour installer les supléments invités, nous avons insérer le disque virtuel des additions invités et entrer deux commandes.
+
+.Emplacement des Supléments invités
+image::emplacementAdditionsInvites.png[ImageDeLEmplacementDesAdditionsinvites,800,400]
+
+_Il faut accéder à cette partie du menu pour insérer le cd._
+
+* [green]#*[Q4.b:]*# _À quoi servent les suppléments invités ? Donner 2 principales raisons de les installer._ +
+Les Additions invité sont des pilotes adaptés pour les systèmes invités comme Windows ou ceux basés sur GNU/Linux qui permettent par exemple : le partage des dossiers ou encore une capture/libération dynamique du curseur lorsque celui-ci se déplace entre système hôte et système invité. Ils améliorent les performances du système d'exploitation invité et permettent une meilleure interaction entre la machine hôte et la machine invité. +
+Source : https://doc.ubuntu-fr.org/virtualbox_additions_invite[doc.ubuntu-fr] +
+
+Une fois le cd inséré, nous avons ouvert un terminal et nous avons entré : "*_sudo mount /dev/cdrom /mnt_*". +
+
+[red]#*/!\*# _Nous avons eu beaucoup de mal, car la syntaxe est très importante. Par exemple, l'espace après "cdrom" semble annodin mais est *essentiel* car cause des résultats différents en fonction de sa présense ou de son absence._
+
+Ensuite, nous avons entré : "*_sudo /mnt/VBoxLinuxAdditions.run_*". +
+
+Et si tout s'est bien passé, une installation devrait se lancer, sinon un message d'erreur apparaîtra.
+
+.Installation réussie des Supléments invités
+image::InstAddInv.png[ImageDeLInstallationDesAdditionsinvites,800,400]
+
+* [green]#*[Q4.c:]*# _À quoi sert la commande mount ?_ +
+La commande mount permet de demander au système d'exploitation de rendre un système de fichiers accessible, à un emplacement spécifié afin qu'ils puissent être lus ou écrits. Cette commande est utile pour onter des partitions de disques, des sytèmes de fichiers rédeau, des partages de fichiers distants, de disques US=SB, etc... Dans notre cas, cette commande permettait de "monter" le disque virtuel pour le connecter et permettre d'accéder à ses fichiers. +
+Source : https://doc.ubuntu-fr.org/mount_fstab[doc.ubuntu-fr.org] +
+
+<<<
+
+### [blue]#*Proxy*# +
+Parfois, il est nécessaire de configurer un proxy, en fonction d'où on use Internet.
+
+.Configuration du proxy directement dans le fichier apt.conf.d
+image::proxyDansApt.png[ImageDeLaConfigurationDuProxyDansLeFichier,800,400]
+
+Pour connecter son terminal à internet à l'IUT, il est demandé de configurer le proxy en entrant deux commandes, mais ces configurations ne durent pas une fois le terminal fermé. +
+Les commandes : +
+1. _" export http_proxy=http://cache.univ-lille.fr:3128"_ +
+2. _" export https_proxy=https://cache.univ-lille.fr:3128"_ +
+
+Pour éviter de le re-rentrer à chaque fois dans le terminal, on peut entrer les commandes directement dans le fichier *".bashrc"*.
+Pas de besoin de sudo, c'est un fichier appartenant à l'utilisateur et n'influant que son terminal. +
+Les commandes entrées dans ce fichier seront exécutés à chaque lancement d'un nouveau terminal.
+
+[cols="1"]
+|===
+^| [red]#*Fin du correctif du rapport intermédiaire.*#
+|===
+
+<<<
+
+## *A propos de Debian* +
+
+### [blue]#*Quelques questions*# +
+
+* [green]#*[Q1:]*# Qu’est-ce que le _Projet Debian_ ? D’où vient le nom _Debian_ ? +
+The Debian Project is a worldwide group of volunteers who endeavor to produce an operating system distribution that is composed entirely of free software. The name comes from the names of the creator of Debian, Ian Murdock, and his wife, Debra. +
+Source : https://www.debian.org/doc/manuals/project-history/project-history.en.pdf[debian.org] +
+ +
+
+* [green]#*[Q2:]*# Il existe 3 durées de prise en charge. Quelle sont les durées de ces prises en charge ? +
+Debian annonce régulièrement une nouvelle version stable. Les utilisateurs peuvent s’attendre à une prise en charge complète pendant trois années pour chaque publication et deux années supplémentaires avec LTS. +
+Source : https://www.debian.org/releases/index.fr.html[debian.org] +
+ +
+
+* [green]#*[Q3:]*# Pendant combien de temps les mises à jour de sécurité seront-elles fournies ? +
+L'équipe en charge de la sécurité essaye de prendre en charge la distribution stable environ une année après que la version stable suivante a été publiée, sauf lorsqu'une autre distribution stable est publiée la même année. Il n'est pas possible de prendre en charge trois distributions, c'est déjà bien assez difficile avec deux. +
+Source : https://www.debian.org/security/faq.fr.html#lifespan[debian.org] +
+ +
+
+* [green]#*[Q4:]*# Combien de version au minimum sont activement maintenues par Debian ? Donnez leur nom générique (= les types de distribution). +
+Debian maintiennent au moins 3 versions.
+** Debian 11 ("Bullseye") — actuelle version "stable" ;
+** Debian 10 ("Buster") — actuelle version "oldstable" ;
+** Debian 9 ("Stretch") — actuelle version "oldoldstable" avec prise en charge à long terme LTS ;
+** Debian 8 ("Jessie") — version archivée avec prise en charge à long terme étendue LT
+S ; +
+ +
+Source : https://www.debian.org/releases/index.fr.html[debian.org] +
+ +
+
+* [green]#*[Q5:]*# Chaque distribution majeur possède un nom de code différent. Par exemple, la version majeur actuelle (Debian 11) se nomme Bullseye. D’où viennent les noms de code données aux distributions ? +
+Ce sont juste des noms de code. Quand une distribution Debian est en cours de développement, elle n'a aucun numéro de version mais un nom de code. Le but de ces noms de code est de faciliter la copie sur les miroirs des distributions Debian (si un véritable répertoire comme unstable est soudainement renommé en stable, beaucoup de choses devraient être inutilement téléchargées). +
+Source : https://www.debian.org/doc/manuals/debian-faq/ftparchives.fr.html[debian.org] +
+ +
+
+* [green]#*[Q6:]*# L’un des atouts de Debian fut le nombre d’architecture (≈ processeurs) officiellement prises en charge. Combien et lesquelles sont prises en charge par la version Bullseye ? +
+8 architectures :
+** PC 32 bits (i386) et PC 64 bits (amd64) +
+** ARM 64 bits (arm64) +
+** ARM EABI (armel) +
+** ARMv7 (ARM avec unité de calcul flottant, armhf) +
+** MIPS petit-boutiste (mipsel) +
+** MIPS 64 bits petit-boutiste (mips64el) +
+** PowerPC 64 bits petit-boutiste (ppc64el) +
+** IBM System z (s390x) +
+ +
+Source : https://www.debian.org/releases/stable/arm64/release-notes.fr.pdf[debian.org] +
+ +
+
+* [green]#*[Q7:]*# Première version avec un nom de code +
+◦ Quelle a était le premier nom de code utilisé ? +
+  Hamm +
+◦ Quand a-t-il été annoncé ? +
+ _ _ 24 juillet 1998 +
+◦ Quelle était le numéro de version de cette distribution ? +
+ _ _ 2.0 +
+Source : https://www.debian.org/releases/hamm/[debian.org] +
+ +
+
+* [green]#*[Q8:]*# Dernier nom de code attribué +
+◦ Quel est le dernier nom de code annoncée à ce jour ? +
+ _ _ Bookworm +
+◦ Quand a-t-il été annoncé ? +
+ _ _ 16-04-2018 +
+◦ Quelle est la version de cette distribution ? +
+ _ _ 12.0 +
+Source : https://www.debian.org/releases/bookworm/[debian.org] +
+ +
+
+<<<
+
+### [blue]#*Installation préconfigurée*#
+
+Pour faire l'installation préconfiguré, il faut commencer par créer une machine de la même manière que pour l'installation manuelle. Il faut donc répéter les étapes du début du rapport pour créer une nouvelle machine virtuelle avec VirtualBox, en s'arrêtant juste avant l'insertion du fichier.iso.footnote:[Attention à bien placer cette machine dans le fichier /usr/local/virtual_machine/infoetu/votre_login.]
+- Il faut récupérer l'archive autoinstall.zip sur Moodle et le décompressez dans le réperoire de la machine virtuelle. +
+- Ensuite, il faut remplacer la chaine @@UID@@ dans le fichier _SAE203-Debian.viso_.
+Pour cela le plus simple est d'exécuter cette commande dans le même répertoire que celui contenant le fichier _S203-Debian11.viso_: "sed -i -E "s/(--iprt-iso-maker-file-marker-bourne-sh).*$/\1=$(cat /proc/sys/kernel/random/uuid)/" S203-Debian11.viso"
+Sinon, il est possible, de directement aller dans le fichier.viso et de remplacer le @@UID@@ par une une chaine que vous obtenez en allant sur un site fournissant des clés unique tel que : https://www.uuidgenerator.net/. +
+- Puis, il faut insérer le fichier S203_Debian11.viso dans le lecteur optique de la machine virtuelle.
+- Enfin, il faut démarrer la machine virtuelle et laissez l'installation se faire.
+
+* [green]#*[Questions:]*# Ajustement de la pré-configuration +
+
+[green]#a)# Ajouter le droit d’utiliser sudo à l’utilisateur standard +
+[green]#b)# Installer l’environnement MATE. +
+[green]#c)# Ajouter les paquets suivants : +
+ _ [green]#c.1)# sudo : sinon la gestion sudo est inutile +
+ _ [green]#c.2)# git, sqlite3, curl : pour préparer l’installation de la semaine prochaine +
+ _ [green]#c.3)# bash-completion : va vous simplifier grandement l’écriture des lignes de commande +
+ _ [green]#c.4)# neofetch : pas très utile mais c’est un classique dans son genre +
+
+[green]#a)# Il faut modifier le fichier de configuration "preseed-fr.cfg" et ajouter le groupe sudo à user. +
+Source : https://www.debian.org/releases/stable/amd64/apbs04.fr.html[www.debian.org] +
+
+[green]#b)# Il faut changer "standard" en "mate-desktop" +
+Source : https://www.debian.org/releases/stable/amd64/apbs04.fr.html[www.debian.org] +
+
+[green]#c)# Dans le fichier preeseed, il y faut ajouter : +
+[green]#c.1)# apt-get install sudo +
+Source : https://documentation.arcserve.com/Arcserve-UDP/Available/V6.5/ENU/Bookshelf_Files/HTML/Agent%20Online%20Help%20Linux/Content/AgentforLinuxUserGuide/udpl_config_sudo_debian.html[documentation.arcserve.com] +
+[green]#c.2)#  - apt install git-all +
+      Source : https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git[git-scm.com] +
+      - apt-get install sqlite3 +
+      Source : https://doc.ubuntu-fr.org/sqlite[doc.ubuntu-fr.org] +
+      - apt-get install curl +
+      Source : https://www.cyberciti.biz/faq/howto-install-curl-command-on-debian-linux-using-apt-get/[cyberciti] +
+[green]#c.3)# apt-get install bash-completion +
+Source : https://www.howtoforge.com/how-to-add-bash-completion-in-debian[www.debian.org] +
+[green]#c.4)# apt-get install neofetch +
+Source : https://www.cyberciti.biz/howto/neofetch-awesome-system-info-bash-script-for-linux-unix-macos/[cyberciti] +
+
+
+Il ne reste plus que maintenant à relancer l'installation et à vérifier les changements. +
+
+<<<
+
+## Configuration globale de gitea
+### [blue]#*Prérequis*#
+
+Nous allons maintenant procéder à la configuration de gitea. Avant cela, il y a quelques préliminaires : +
+. Ouvrez un terminal et entrez les commandes suivantes
+. git config --global user.name "Prénom Nom"
+. git config --global user.email "votre@email"
+. git config --global init.defaultBranch "master"
+. puis installez le paquet gui avec cette commande : apt install git-gui
+
+[.text-center]
+_Bien sûr, il faut remplacer Prénom et Nom par les vôtre, de même pour l'email._
+
+* [green]#*[Q1.a:]*# _Qu’est-ce que le logiciel *git-gui* ? Comment se lance-t-il ?_ +
+GUI de Git GUI est l'abréviation de Graphical User Interface. C'est une interface graphique pour git qui permet de visualiser et de modifier les fichiers de suivi, d'effectuer les opérations de base comme pull, push, commit etc... C'st donc une alternative aux lignes de commandes de git, améliorant ainsi son accesibilité mais le rendant plus limité. Pour lancer git-gui, il faut ouvrir un terminal et taper "git-gui". +
+Source : https://git-scm.com/docs/git-gui/[git-scm.com] +
+
+* [green]#*[Q1.b:]*# _Même question pour *gitk*_ +
+Gitk est un navigateur de dossier pour git, il permet de naviguer dans l'historique des dépôts, des commits, des branches et des balises d'un référentiel plus facilement. Il permet aussi des fonctionnalités plus avancées comme la recherche de commit, la comparaison entre différents commit, le gestion des branches et des balises, etc... Gitk peut être lancé en ouvrant un terminal et en tapant "gitk". +
+Source : https://git-scm.com/docs/gitk[git-scm.com] +
+
+* [green]#*[Q1.c:]*# _Quelle sera la ligne de commande git pour utiliser par défaut le proxy de l’université sur tous vos projets git ?_ +
+git config --global http.proxy [proxy](ici celui de l'université) +
+Source : https://gist.github.com/evantoli/f8c23a37eb3558ab8765[gist.github.com] +
+
+Voilà, git est configuré, et git-gui est installé, il est maintenant nécéssaire de rediriger les messages arrivant sur le port 3000 de la machine physique sur le port 3000 de la machine virtuelle. Pour cela il faut ouvrir le panneau de configuration de la machine virtuelle et reproduire les redirections de ports comme montrées avec l'image dessous, en particulier la petite fenêtre en bas, appelée _"Règles de redirection de ports"_, que vous obtenez en cliquant sur : ->Configuration ->Réseau ->Avancé ->Redirection de ports.
+
+.Redirection réseau à reproduire
+image::RedirectionReseaux.png[ImageDeLaConfigurationDesRedirectionsReseaux,1200,600]
+
+
+### [blue]#*Installation*#
+C'est important de faire attention à ce que l'on télécharge en ligne. Gitea ne faisant pas partie des paquets Debian officiel, il faudra faire attention à ce que l'on télécharge ou à la manière dont nous le téléchargeons. +
+*[red]#/!\# Il faut toujours se fier à la documentation officielle !* +
+
+Pour installer Gitea, il faut se rendre sur cette page: " https://dl.gitea.com/gitea/ " et chercher la version que l'on veut installer. Soit la version la version [red]#*1.18.5*# pour [red]#*linux-amd64*#.
+
+Le plus simple ensuite est d'installer le paquet avec la commande wget. +
+[red]#*/!\ Si elle n'est pas installé, il faut entrer d'abord : 0. "apt install wget".* +
+Il peut être aussi utilile de vérifier que git soit bien installé avec la commande: "git --version" (version>=2.0).# +
+
+Avec la version que l'on veut, cela donnerait : +
+1. "wget -O gitea https://dl.gitea.com/gitea/1.18.5/gitea-1.18.5-linux-amd64 ". +
+Il est nécéssaire ensuite de rajouter les droits d'éxécution sur le fichier : +
+2. "chmod +x gitea" +
+
+Gitea signe tous ses fichiers binaires avec une clé de chiffrement afin d'empêcher les modifications involontaires de ces fichiers. Il faut aller sur ce site : https://keys.openpgp.org/search?q=teabot%40gitea.io[keys.openpgp.org], télécharger le fichier et entrer ensuite ces commandes : +
+3. gpg --keyserver keys.openpgp.org --recv 7C9E68152594688862D62AF62D9AE806EC1592E2 +
+4. gpg --verify gitea-1.18.5-linux-amd64.asc gitea-1.18.5-linux-amd64
+
+[.text-center]
+[red]#*Des Difficultés !* +
+Je n'ai pas réussi à faire fonctionner les clés. Le terminal me renvoie à chaque fois une erreur disant que le contenu est inutilisable. Je n'ai pas encore touvé comment il faut faire.#
+
+Il vaut mieux ensuite créer une structure de dossier et un utilisateur qui servira à lancer Gitea.
+5.
+adduser \
+   --system \
+   --shell /bin/bash \
+   --gecos 'Git Version Control' \
+   --group \
+   --disabled-password \
+   --home /home/git \
+   git
+  
+6. 
+mkdir -p /var/lib/gitea/{custom,data,log}
+chown -R git:git /var/lib/gitea/
+chmod -R 750 /var/lib/gitea/
+mkdir /etc/gitea
+chown root:git /etc/gitea
+chmod 770 /etc/gitea
+cp gitea /usr/local/bin/gitea
+
+### [blue]#*Configuration*#
+
+On peut maintenant lancer Gitea. Pour cela, on doit d'abord vérifier que le système est bien démarré en entrant cette commande : "systemctl status gitea.service". +
+Vous devrez avoir quelque chose de similaire à l'image ci-dessous.
+Si c'est le cas, il faut ensuite utiliser la machine physique pour se rendre sur cette url : http://localhost:3000. Si les résultats ne sont pas ceux attendus, il est probable que l'erreur soit survenue lors de la redirection des ports.
+
+.Resultat souhaité de "systemctl status gitea.service".
+image::MessageSucces.png[ImageDuResultatVoulue,400,200]
+
+.Resultat souhaité en ouvrant l'url.
+image::ConfigInit.png[ImageDuResultatDeLURL,400,200]
+
+Il faut ensuite mettre cette configuration :
+
+[cols="1,1"]
+|===
+|Base De Données
+|SQLite3
+
+|Nom
+|gitea
+
+|Mot De Passe
+|gitea
+
+|Email
+|git@localhost
+|===
+
+[red]#/!\# Attention à bien rentrer les données, personnellement, je ne me suis pas rendu compte que l'on pouvait modifier la base de données, me donnant cette erreur :
+
+.Resultat non souhaité de la configuration.
+image::ErreurGitea.png[ImageDeLErreurDeLaConfigurationDeGitea,1000,500]
+
+car la base de données paramétrés ne correspondait pas ducoup à celle qui était configuré. Il fallait la changer pour _Sqlite3_.
+
+.Une citation approprié...
+[quote,Alan Turing]
+L'intelligence est, hélas ! toujours une énigme, mais pas plus que la bêtise...
+
+Il ne faut pas non plus oublier de protéger /etc/gitea et /etc/gitea/app/ini, en vérifiant que les permissions pour modifier ce fichier ne soit donné qu'à l'utilisateur (de préférence non priviligié) qui exécute l'instance de _Gitea_.
+
+* [green]#*[Q3:]*# _Comment faire pour la mettre à jour sans devoir tout reconfigurer ? Essayez en mettant à jour vers la version 1.19._ +
+Il faut :
+. Sauvegarder les données en copiant les fichiers /var/lib/gitea et /etc/gitea/app.ini
+. Télécharger la dernière version de _Gitea_
+. Arreter votre instance de _Gitea_ avec "systemctl stop gitea"
+. Remplacer l'ancien fichier binaire avec celui téléchargé
+. Relancer _Gitea_ +
+Source : https://docs.gitea.io/fr-fr/upgrade-from-gitea/[docs.gitea.io-fr] +
+
+
+### [blue]#*Utilisation*#
+
+Une fois que _Gitea_ est installé et configué, il n'y a plus qu'à l'utiliser !
+
+.Bienvenue sur Gitea.
+image::EspaceGitea.png[ImageDeLEspaceGitea,800,400]
+
+Ajoutons :
+* Un projet directement depuis l'interface web de _Gitea_.
+* Mes rapports de cette Saé.
+
+- Pour créer un projet directement depuis l'interface _Gitea_, il faut appuyer en haut à droite sur le *+* et puis sur *"Créer un nouveau dépot"* et sélectionner les paramètres voulus. +
+- Pour ajouter mes rapports, j'ai fait : +
+1. "git init" dans le répertoire contenant mes rapports. +
+2. "git add (nom du fichier)" sur chacun de mes rapports pour les ajouter. +
+3. "git commit -m "MesRapports" pour les commit puis, +
+4. "git push" mais cela n'a pas fonctionné et me renvoyait une [red]#erreur#. +
+5. Il fallait faire avant : "git remote add gitea http://localhost:3000/gitea/Rapports.git " pour "lier" le _Git_ et le _Gitea_. +
+6. Enfin "git push --set-upstream gitea master" Pour pousser le commit sur le _Git_ et ainsi sur le _Gitea_. +
+
+.Mes dépôts sur Gitea.
+image::Depots.png[ImageDesDepotsSurGitea,800,400]
+
+Ainsi les rapports y ont bien étés déposés et c'est aussi ainsi que celui-ci se conclut.
+Nous aurions vu comment paramétrer l'installation et configurer une machine virtuelle pour manipuler un logiciel tel que gitea.
+
+Mes principale source pour rédiger ce rapport ont étés : +
+- https://doc.ubuntu-fr.org/mount_fstab +
+- https://www.debian.org +
+A eux seul, ces sites représentent 3/4 de mes sources. 😃️
+
+*Rappport intermédiaire : _FOURMAINTRAUX Camille_, _Vely Maxence_ - _19/02/23_.* +
+*Rapport final : _FOURMAINTRAUX Camille_ - _21/03/23_ - Groupe _E_.*
